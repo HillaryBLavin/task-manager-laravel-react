@@ -11,6 +11,7 @@ class App extends Component {
         // Bind methods to constructor
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.renderTasks = this.renderTasks.bind(this);
     }
 
     handleChange(event) {
@@ -33,6 +34,29 @@ class App extends Component {
         }).catch(error => {
             console.log(error.response);
         });
+    }
+
+    renderTasks() {
+        return this.state.tasks.map(task => (
+            <div key={task.id} className="media">
+                <div className="media-body">
+                    <div>
+                        {task.name}
+                    </div>
+                </div>
+            </div>
+        ))
+    }
+
+    getTasks() {
+        axios.get('/tasks').then(response => this.setState({
+            tasks: [...response.data.tasks]
+            })
+        );
+    }
+
+    componentWillMount() {
+        this.getTasks();
     }
     render() {
         return (
@@ -58,6 +82,8 @@ class App extends Component {
                                         Create Task
                                     </button>
                                 </form>
+                                <hr />
+                                {this.renderTasks()}
                             </div>
                         </div>
                     </div>

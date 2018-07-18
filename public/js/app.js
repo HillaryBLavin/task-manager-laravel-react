@@ -55786,6 +55786,7 @@ var App = function (_Component) {
         // Bind methods to constructor
         _this.handleChange = _this.handleChange.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
+        _this.renderTasks = _this.renderTasks.bind(_this);
         return _this;
     }
 
@@ -55814,6 +55815,41 @@ var App = function (_Component) {
             }).catch(function (error) {
                 console.log(error.response);
             });
+        }
+    }, {
+        key: 'renderTasks',
+        value: function renderTasks() {
+            return this.state.tasks.map(function (task) {
+                return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { key: task.id, className: 'media' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'media-body' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            null,
+                            task.name
+                        )
+                    )
+                );
+            });
+        }
+    }, {
+        key: 'getTasks',
+        value: function getTasks() {
+            var _this3 = this;
+
+            axios.get('/tasks').then(function (response) {
+                return _this3.setState({
+                    tasks: [].concat(_toConsumableArray(response.data.tasks))
+                });
+            });
+        }
+    }, {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this.getTasks();
         }
     }, {
         key: 'render',
@@ -55858,7 +55894,9 @@ var App = function (_Component) {
                                         { type: 'submit', className: 'btn btn-primary' },
                                         'Create Task'
                                     )
-                                )
+                                ),
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('hr', null),
+                                this.renderTasks()
                             )
                         )
                     )
