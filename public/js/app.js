@@ -55870,7 +55870,10 @@ var App = function (_Component) {
                 return task.id !== id;
             };
             var updatedTasks = this.state.tasks.filter(isNotId);
+            // Remove task from local state
             this.setState({ tasks: updatedTasks });
+            // Delete task from database
+            axios.delete('/tasks/' + id);
         }
     }, {
         key: 'render',

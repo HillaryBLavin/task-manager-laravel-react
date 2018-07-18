@@ -64,7 +64,10 @@ class App extends Component {
         // Use filter method to filter out all tasks other than the selected task
         const isNotId = task => task.id !== id;
         const updatedTasks = this.state.tasks.filter(isNotId); 
+        // Remove task from local state
         this.setState({tasks: updatedTasks}); 
+        // Delete task from database
+        axios.delete(`/tasks/${id}`);
     }
     render() {
         return (
