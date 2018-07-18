@@ -55834,7 +55834,14 @@ var App = function (_Component) {
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         'div',
                                         { className: 'form-group' },
-                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', { onChange: this.handleChange, className: 'form-control', rows: '5', placeholder: 'Create a new task', required: true })
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', {
+                                            onChange: this.handleChange,
+                                            value: this.state.name,
+                                            className: 'form-control',
+                                            rows: '5',
+                                            maxLength: '255',
+                                            placeholder: 'Create a new task',
+                                            required: true })
                                     ),
                                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                         'button',

@@ -29,7 +29,14 @@ class App extends Component {
                             <div className="card-body">
                                 <form>
                                     <div className="form-group">
-                                        <textarea onChange={this.handleChange} className="form-control" rows="5" placeholder="Create a new task" required />
+                                        <textarea 
+                                            onChange={this.handleChange} 
+                                            value={this.state.name}
+                                            className="form-control" 
+                                            rows="5"
+                                            maxLength="255" 
+                                            placeholder="Create a new task" 
+                                            required />
                                     </div>
                                     <button type="submit" className="btn btn-primary">
                                         Create Task
