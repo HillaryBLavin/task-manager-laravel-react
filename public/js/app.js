@@ -55812,7 +55812,20 @@ var App = function (_Component) {
                             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                                 "div",
                                 { className: "card-body" },
-                                "I'm a React component!"
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    "form",
+                                    null,
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        "div",
+                                        { className: "form-group" },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement("textarea", { className: "form-control", rows: "5", placeholder: "Create a new task", required: true })
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        "button",
+                                        { type: "submit", "class": "btn btn-primary" },
+                                        "Create Task"
+                                    )
+                                )
                             )
                         )
                     )
