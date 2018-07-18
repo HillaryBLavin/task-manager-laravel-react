@@ -18,3 +18,5 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('tasks', 'TaskController'); // Using resource gives us access to all of the available methods in our controller
