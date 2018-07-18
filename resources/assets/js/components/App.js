@@ -25,7 +25,11 @@ class App extends Component {
         axios.post('/tasks', {
             name: this.state.name
         }).then(response => {
-            console.log('from handle submit', response);
+            // console.log('from handle submit', response);
+            this.setState({
+                tasks: [response.data, ...this.state.tasks],
+                name: ''
+            })
         }).catch(error => {
             console.log(error.response);
         });
