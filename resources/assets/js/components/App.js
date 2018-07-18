@@ -9,13 +9,25 @@ class App extends Component {
             tasks: []
         };
         // Bind methods to constructor
-        this.handleChange = this.handleChange.bind(this)
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
         // console.log(event.target.value);
         this.setState({
             name: event.target.value
+        });
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        axios.post('/tasks', {
+            name: this.state.name
+        }).then(response => {
+            console.log('from handle submit', response);
+        }).catch(error => {
+            console.log(error.response);
         });
     }
     render() {
@@ -27,7 +39,7 @@ class App extends Component {
                             <div className="card-header">React Component</div>
 
                             <div className="card-body">
-                                <form>
+                                <form onSubmit={this.handleSubmit}>
                                     <div className="form-group">
                                         <textarea 
                                             onChange={this.handleChange} 
