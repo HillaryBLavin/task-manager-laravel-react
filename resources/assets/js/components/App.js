@@ -12,6 +12,7 @@ class App extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.renderTasks = this.renderTasks.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     }
 
     handleChange(event) {
@@ -41,7 +42,7 @@ class App extends Component {
             <div key={task.id} className="media">
                 <div className="media-body">
                     <div>
-                        {task.name}
+                        {task.name} <button onClick={() => this.handleDelete(task.id)} className="btn btn-sm btn-danger float-right">Delete</button>
                     </div>
                 </div>
             </div>
@@ -57,6 +58,13 @@ class App extends Component {
 
     componentWillMount() {
         this.getTasks();
+    }
+
+    handleDelete(id) {
+        // Use filter method to filter out all tasks other than the selected task
+        const isNotId = task => task.id !== id;
+        const updatedTasks = this.state.tasks.filter(isNotId); 
+        this.setState({tasks: updatedTasks}); 
     }
     render() {
         return (
