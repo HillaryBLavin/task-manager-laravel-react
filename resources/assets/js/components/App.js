@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 
-export default class App extends Component {
+
+class App extends Component {
     render() {
         return (
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-md-8">
                         <div className="card">
-                            <div className="card-header">Example Component</div>
+                            <div className="card-header">React Component</div>
 
                             <div className="card-body">
-                                I'm an example component!
+                                I'm a React component!
                             </div>
                         </div>
                     </div>
@@ -21,6 +21,4 @@ export default class App extends Component {
     }
 }
 
-if (document.getElementById('root')) {
-    ReactDOM.render(<App />, document.getElementById('root'));
-}
+export default App;
