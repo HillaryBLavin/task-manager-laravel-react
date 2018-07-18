@@ -76,7 +76,11 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        //
+        // Find the task requested from the frontend in the backend and return
+        $task = Task::findOrfail($id); 
+        return response()->json([
+            'task' => $task
+        ]);
     }
 
     /**
@@ -88,7 +92,10 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all(); // User input for update
+        $task = Task::findOrFail($id); // Task to be updated
+        $task->update($input); // Update Task in the backend
+        return response()->json($task->with('user')->find($task->id)); // Return task with user object
     }
 
     /**
