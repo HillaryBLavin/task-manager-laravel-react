@@ -2,6 +2,22 @@ import React, { Component } from 'react';
 
 
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: '',
+            tasks: []
+        };
+        // Bind methods to constructor
+        this.handleChange = this.handleChange.bind(this)
+    }
+
+    handleChange(event) {
+        // console.log(event.target.value);
+        this.setState({
+            name: event.target.value
+        });
+    }
     render() {
         return (
             <div className="container">
@@ -13,9 +29,9 @@ class App extends Component {
                             <div className="card-body">
                                 <form>
                                     <div className="form-group">
-                                        <textarea className="form-control" rows="5" placeholder="Create a new task" required />
+                                        <textarea onChange={this.handleChange} className="form-control" rows="5" placeholder="Create a new task" required />
                                     </div>
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" className="btn btn-primary">
                                         Create Task
                                     </button>
                                 </form>
