@@ -43,7 +43,9 @@ class App extends Component {
             <div key={task.id} className="media">
                 <div className="media-body">
                     <div>
-                        {task.name} <button onClick={() => this.handleDelete(task.id)} className="btn btn-sm btn-danger float-right">Delete</button>
+                        {task.name}{' '} 
+                        <Link to={`/${task.id}/edit`} className="btn btn-sm btn-success float-right">Edit</Link>
+                        <button onClick={() => this.handleDelete(task.id)} className="btn btn-sm btn-danger float-right">Delete</button>
                     </div>
                 </div>
             </div>
