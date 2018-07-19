@@ -23,14 +23,11 @@ class TaskEdit extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        axios.post('/tasks', {
+        axios.put(`/tasks/${this.props.match.params.id}`, {
             name: this.state.name
         }).then(response => {
             // console.log('from handle submit', response);
-            this.setState({
-                tasks: [response.data, ...this.state.tasks],
-                name: ''
-            })
+            this.props.history.push('/home');
         }).catch(error => {
             console.log(error.response);
         });
@@ -55,7 +52,7 @@ class TaskEdit extends Component {
                 <div className="row justify-content-center">
                     <div className="col-md-8">
                         <div className="card">
-                            <div className="card-header">React Component</div>
+                            <div className="card-header">Task Editor</div>
 
                             <div className="card-body">
                                 <form onSubmit={this.handleSubmit}>
@@ -70,7 +67,7 @@ class TaskEdit extends Component {
                                             required />
                                     </div>
                                     <button type="submit" className="btn btn-primary">
-                                        Create Task
+                                        Edit Task
                                     </button>
                                 </form>
                             </div>
