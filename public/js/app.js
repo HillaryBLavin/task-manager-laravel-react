@@ -60016,7 +60016,10 @@ module.exports = hoistNonReactStatics;
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_router_dom__ = __webpack_require__(81);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -60026,22 +60029,117 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+
 var TaskEdit = function (_Component) {
     _inherits(TaskEdit, _Component);
 
-    function TaskEdit() {
+    function TaskEdit(props) {
         _classCallCheck(this, TaskEdit);
 
-        return _possibleConstructorReturn(this, (TaskEdit.__proto__ || Object.getPrototypeOf(TaskEdit)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (TaskEdit.__proto__ || Object.getPrototypeOf(TaskEdit)).call(this, props));
+
+        _this.state = {
+            name: '',
+            task: []
+        };
+        // Bind methods to constructor
+        _this.handleChange = _this.handleChange.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        return _this;
     }
 
     _createClass(TaskEdit, [{
+        key: 'handleChange',
+        value: function handleChange(event) {
+            // console.log(event.target.value);
+            this.setState({
+                name: event.target.value
+            });
+        }
+    }, {
+        key: 'handleSubmit',
+        value: function handleSubmit(event) {
+            var _this2 = this;
+
+            event.preventDefault();
+            axios.post('/tasks', {
+                name: this.state.name
+            }).then(function (response) {
+                // console.log('from handle submit', response);
+                _this2.setState({
+                    tasks: [response.data].concat(_toConsumableArray(_this2.state.tasks)),
+                    name: ''
+                });
+            }).catch(function (error) {
+                console.log(error.response);
+            });
+        }
+    }, {
+        key: 'getTask',
+        value: function getTask() {
+            var _this3 = this;
+
+            axios.get('/tasks/' + this.props.match.params.id + '/edit').then(function (response) {
+                return _this3.setState({
+                    task: [response.data.task],
+                    name: response.data.task.name
+                });
+            });
+        }
+    }, {
+        key: 'componentWillMount',
+        value: function componentWillMount() {
+            this.getTask();
+        }
+    }, {
         key: 'render',
         value: function render() {
+            console.log(this.props.match.params.id);
             return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-                'h2',
-                null,
-                'Task Editor'
+                'div',
+                { className: 'container' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { className: 'row justify-content-center' },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { className: 'col-md-8' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                            'div',
+                            { className: 'card' },
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { className: 'card-header' },
+                                'React Component'
+                            ),
+                            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                'div',
+                                { className: 'card-body' },
+                                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                    'form',
+                                    { onSubmit: this.handleSubmit },
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'div',
+                                        { className: 'form-group' },
+                                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('textarea', {
+                                            onChange: this.handleChange,
+                                            value: this.state.name,
+                                            className: 'form-control',
+                                            rows: '5',
+                                            maxLength: '255',
+                                            placeholder: 'Create a new task',
+                                            required: true })
+                                    ),
+                                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                                        'button',
+                                        { type: 'submit', className: 'btn btn-primary' },
+                                        'Create Task'
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
             );
         }
     }]);
